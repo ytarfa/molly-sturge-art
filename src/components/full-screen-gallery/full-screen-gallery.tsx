@@ -23,10 +23,6 @@ interface FullScreenGalleryProps {
   items: FullScreenGalleryItem[]
 }
 
-interface FullScreenViewProps {
-  imageUrl: string
-}
-
 const GalleryItem = (props: GalleryItemProps) => {
   const { fullScreenGalleryItem, visible, next, prev, current, count } = props
 
@@ -101,18 +97,6 @@ export const FullScreenGallery = (props: FullScreenGalleryProps) => {
       count={items.length}
     />
   ))
-
-  const smallGalleryItems = items.map((item) => (
-    <div key={item.imageUrl}>
-      <img
-        src={item.imageUrl}
-        alt={item.title}
-        className='cursor-pointer max-h-[200px] lg:max-h-[400px] object-contain'
-        onClick={() => {
-          setCurrentItemIndex(items.indexOf(item))
-        }}
-      />
-    </div>
   ))
 
   return galleryItems

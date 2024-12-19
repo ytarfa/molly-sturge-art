@@ -44,7 +44,7 @@ const GalleryItem = (props: GalleryItemProps) => {
         src={imageUrl}
         alt={fullScreenGalleryItem.title}
         onClick={() => setFullScreenImageUrl(imageUrl)}
-        className='cursor-pointer max-h-[200px] lg:max-h-[300px] object-contain'
+        className='cursor-pointer max-h-[200px] lg:max-h-[300px] object-contain cursor-plus'
       />
     )
   )
@@ -54,18 +54,29 @@ const GalleryItem = (props: GalleryItemProps) => {
       {/* Main Gallery Item */}
       <div className={clsx("h-full flex flex-col gap-y-2 m-auto")}>
         <div className='flex-shrink-0'>
-          <button onClick={prev}>Prev </button>
+          <button
+            onClick={prev}
+            className='cursor-none cursor-hover hover:font-bold'
+          >
+            Prev{" "}
+          </button>
           <p className='inline'> / </p>
-          <button onClick={next}> Next </button>
+          <button
+            onClick={next}
+            className='cursor-none cursor-hover hover:font-bold'
+          >
+            {" "}
+            Next{" "}
+          </button>
           <p className='inline ml-2 text-slate-500'>
-            ({current + 1} of {count + 1})
+            ({current + 1} of {count})
           </p>
         </div>
         <div className='flex-grow flex overflow-hidden'>
           <img
             src={fullScreenGalleryItem.imageUrl}
             alt={fullScreenGalleryItem.title}
-            className='max-w-full max-h-full lg:max-h-[80vh] lg:max-w-[75vw] object-contain cursor-pointer'
+            className='max-w-full max-h-full lg:max-h-[80vh] lg:max-w-[75vw] object-contain cursor-plus'
             onClick={() =>
               setFullScreenImageUrl(fullScreenGalleryItem.imageUrl)
             }
@@ -100,7 +111,9 @@ export const FullScreenGallery = (props: FullScreenGalleryProps) => {
       fullScreenGalleryItem={item}
       visible={currentItemIndex === items.indexOf(item)}
       next={() => {
-        setCurrentItemIndex((currentItemIndex + 1) % items.length)
+        setCurrentItemIndex(
+          currentItemIndex === items.length - 1 ? 0 : currentItemIndex + 1
+        )
       }}
       prev={() => {
         setCurrentItemIndex(
@@ -115,11 +128,7 @@ export const FullScreenGallery = (props: FullScreenGalleryProps) => {
 
   const fullScreenImage = useMemo(() => {
     return fullScreenImageUrl ? (
-      <img
-        src={fullScreenImageUrl}
-        className='m-auto max-h-full max-w-full cursor-pointer'
-        onClick={() => setFullScreenImageUrl("")}
-      />
+      <img src={fullScreenImageUrl} className='m-auto max-h-full max-w-full' />
     ) : null
   }, [fullScreenImageUrl])
 
@@ -128,9 +137,10 @@ export const FullScreenGallery = (props: FullScreenGalleryProps) => {
       {galleryItems}
       <div
         className={clsx([
-          "top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 p-10",
+          "top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 p-10 cursor-x",
           fullScreenImageUrl ? "fixed" : "hidden",
         ])}
+        onClick={() => setFullScreenImageUrl("")}
       >
         {fullScreenImage}
       </div>

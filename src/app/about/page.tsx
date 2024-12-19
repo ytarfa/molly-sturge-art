@@ -37,7 +37,7 @@ export default async function AboutPage() {
     options
   )
 
-  const linkClasses = "underline hover:font-bold"
+  const linkClasses = "underline hover:font-bold cursor-none cursor-hover"
 
   return (
     <div className='max-w-[800px]'>

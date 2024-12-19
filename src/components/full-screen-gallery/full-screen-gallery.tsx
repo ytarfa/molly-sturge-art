@@ -97,7 +97,6 @@ export const FullScreenGallery = (props: FullScreenGalleryProps) => {
       count={items.length}
     />
   ))
-  ))
 
   return galleryItems
 }

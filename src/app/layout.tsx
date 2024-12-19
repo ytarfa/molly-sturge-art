@@ -4,7 +4,7 @@ import "./globals.css"
 import { Navbar } from "@/components/navbar/navbar"
 import { Roboto } from "next/font/google"
 
-const font = Roboto({ weight: "400" })
+const font = Roboto({ weight: "400", subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: "Molly Sturge Art",

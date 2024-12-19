@@ -48,7 +48,7 @@ const GalleryItem = (props: GalleryItemProps) => {
           <p className='inline'> / </p>
           <button onClick={next}> Next </button>
           <p className='inline ml-2 text-slate-500'>
-            ({current} of {count})
+            ({current + 1} of {count + 1})
           </p>
         </div>
         <div className='flex-grow flex overflow-hidden'>

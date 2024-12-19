@@ -5,10 +5,10 @@ import { Navbar } from "@/components/navbar/navbar"
 import { library } from "@fortawesome/fontawesome-svg-core"
 import { faPlus } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { Roboto } from "next/font/google"
+import { Spline_Sans } from "next/font/google"
 import AnimatedCursor from "react-animated-cursor"
 
-const font = Roboto({ weight: "400", subsets: ["latin"] })
+const font = Spline_Sans({ weight: "400", subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: "Molly Sturge Art",
@@ -26,6 +26,24 @@ export default function RootLayout({
     <html lang='en'>
       <head>
         <meta name='viewport' content='width=device-width, initial-scale=1' />
+        <link
+          rel='apple-touch-icon'
+          sizes='180x180'
+          href='favicon/apple-touch-icon.png'
+        ></link>
+        <link
+          rel='icon'
+          type='image/png'
+          sizes='32x32'
+          href='favicon/favicon-32x32.png'
+        ></link>
+        <link
+          rel='icon'
+          type='image/png'
+          sizes='16x16'
+          href='favicon/favicon-16x16.png'
+        ></link>
+        <link rel='manifest' href='favicon/site.webmanifest'></link>
       </head>
       <body
         className={`${font.className} antialiased flex lg:flex-row flex-col`}

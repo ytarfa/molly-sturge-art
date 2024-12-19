@@ -1,6 +1,6 @@
 "use client"
 import clsx from "clsx"
-import { useState } from "react"
+import { useMemo, useState } from "react"
 
 interface FullScreenGalleryItem {
   imageUrl: string
@@ -15,6 +15,7 @@ interface GalleryItemProps {
   visible: boolean
   next: () => void
   prev: () => void
+  setFullScreenImageUrl: (url: string) => void
   current: number
   count: number
 }
@@ -24,7 +25,15 @@ interface FullScreenGalleryProps {
 }
 
 const GalleryItem = (props: GalleryItemProps) => {
-  const { fullScreenGalleryItem, visible, next, prev, current, count } = props
+  const {
+    fullScreenGalleryItem,
+    visible,
+    next,
+    prev,
+    current,
+    count,
+    setFullScreenImageUrl,
+  } = props
 
   const visibilityClass = visible ? "block" : "hidden"
 
@@ -34,6 +43,7 @@ const GalleryItem = (props: GalleryItemProps) => {
         key={imageUrl}
         src={imageUrl}
         alt={fullScreenGalleryItem.title}
+        onClick={() => setFullScreenImageUrl(imageUrl)}
         className='cursor-pointer max-h-[200px] lg:max-h-[300px] object-contain'
       />
     )
@@ -55,7 +65,10 @@ const GalleryItem = (props: GalleryItemProps) => {
           <img
             src={fullScreenGalleryItem.imageUrl}
             alt={fullScreenGalleryItem.title}
-            className='max-w-full max-h-full lg:max-h-[80vh] lg:max-w-[75vw] object-contain'
+            className='max-w-full max-h-full lg:max-h-[80vh] lg:max-w-[75vw] object-contain cursor-pointer'
+            onClick={() =>
+              setFullScreenImageUrl(fullScreenGalleryItem.imageUrl)
+            }
           />
         </div>
         <div>
@@ -79,6 +92,7 @@ export const FullScreenGallery = (props: FullScreenGalleryProps) => {
   const { items } = props
 
   const [currentItemIndex, setCurrentItemIndex] = useState(0)
+  const [fullScreenImageUrl, setFullScreenImageUrl] = useState<string>("")
 
   const galleryItems = items.map((item) => (
     <GalleryItem
@@ -93,10 +107,33 @@ export const FullScreenGallery = (props: FullScreenGalleryProps) => {
           currentItemIndex === 0 ? items.length - 1 : currentItemIndex - 1
         )
       }}
+      setFullScreenImageUrl={setFullScreenImageUrl}
       current={currentItemIndex}
       count={items.length}
     />
   ))
 
-  return galleryItems
+  const fullScreenImage = useMemo(() => {
+    return fullScreenImageUrl ? (
+      <img
+        src={fullScreenImageUrl}
+        className='m-auto max-h-full max-w-full cursor-pointer'
+        onClick={() => setFullScreenImageUrl("")}
+      />
+    ) : null
+  }, [fullScreenImageUrl])
+
+  return (
+    <div>
+      {galleryItems}
+      <div
+        className={clsx([
+          "top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 p-10",
+          fullScreenImageUrl ? "fixed" : "hidden",
+        ])}
+      >
+        {fullScreenImage}
+      </div>
+    </div>
+  )
 }

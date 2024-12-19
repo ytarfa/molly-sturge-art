@@ -17,7 +17,7 @@ export const Navbar = (props: NavbarProps) => {
       : "text-black"
     : "text-black"
 
-  const linkClasses = "hover:font-bold"
+  const linkClasses = "hover:font-bold cursor-none cursor-hover"
 
   return (
     <div>

@@ -1,10 +1,10 @@
 export default function findInArray<T>(
   arr: T[],
   callback: (element: T, index: number, array: T[]) => boolean,
-  ...args
+  ...args: any[]
 ): T | undefined {
-  if (typeof callback !== 'function') {
-    throw new TypeError('callback must be a function')
+  if (typeof callback !== "function") {
+    throw new TypeError("callback must be a function")
   }
 
   const list = Object(arr)

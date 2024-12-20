@@ -13,14 +13,13 @@ interface Piece {
   title: string
   publishedAt: string
   image: SanityImageSource
-  year: string
   subtitle: string
   images: SanityImageSource[]
 }
 
 const PIECES_QUERY = `*[
   _type == "piece"
-]|order(publishedAt desc)[0...12]{_id, title, publishedAt, image, year, subtitle, images}`
+]|order(publishedAt desc)[0...12]{_id, title, publishedAt, image, subtitle, images}`
 
 const getUrl = (
   source: SanityImageSource,
@@ -51,7 +50,6 @@ export default async function IndexPage() {
     return {
       title: piece.title,
       imageUrl: pieceImageUrl,
-      year: piece.year,
       subtitle: piece.subtitle,
       imagesUrls: piece.images
         ? piece.images.map((image) => {

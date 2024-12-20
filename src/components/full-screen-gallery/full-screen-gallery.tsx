@@ -5,7 +5,6 @@ import { useMemo, useState } from "react"
 interface FullScreenGalleryItem {
   imageUrl: string
   title: string
-  year: string
   subtitle: string
   imagesUrls?: string[]
 }
@@ -58,15 +57,14 @@ const GalleryItem = (props: GalleryItemProps) => {
             onClick={prev}
             className='cursor-none cursor-hover hover:font-bold'
           >
-            Prev{" "}
+            Prev
           </button>
           <p className='inline'> / </p>
           <button
             onClick={next}
             className='cursor-none cursor-hover hover:font-bold'
           >
-            {" "}
-            Next{" "}
+            Next
           </button>
           <p className='inline ml-2 text-slate-500'>
             ({current + 1} of {count})
@@ -83,9 +81,7 @@ const GalleryItem = (props: GalleryItemProps) => {
           />
         </div>
         <div>
-          <p className='flex-shrink-0'>
-            {fullScreenGalleryItem.year} | {fullScreenGalleryItem.title}
-          </p>
+          <p className='flex-shrink-0'>{fullScreenGalleryItem.title}</p>
           <p className='text-xs text-slate-500'>
             {fullScreenGalleryItem.subtitle}
           </p>

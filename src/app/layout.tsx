@@ -11,7 +11,7 @@ import AnimatedCursor from "react-animated-cursor"
 const font = Spline_Sans({ weight: "400", subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Molly Sturge Art",
+  title: "Molly Sturge",
   description: "",
 }
 

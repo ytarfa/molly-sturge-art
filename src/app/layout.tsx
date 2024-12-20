@@ -1,12 +1,12 @@
 import type { Metadata } from "next"
 import "./globals.css"
 
+import AnimatedCursor from "@/components/animated-cursor/lib"
 import { Navbar } from "@/components/navbar/navbar"
 import { library } from "@fortawesome/fontawesome-svg-core"
 import { faPlus } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Spline_Sans } from "next/font/google"
-import AnimatedCursor from "react-animated-cursor"
 
 const font = Spline_Sans({ weight: "400", subsets: ["latin"] })
 

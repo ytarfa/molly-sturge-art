@@ -15,11 +15,12 @@ interface Piece {
   image: SanityImageSource
   subtitle: string
   images: SanityImageSource[]
+  order: number
 }
 
 const PIECES_QUERY = `*[
   _type == "piece"
-]|order(publishedAt desc)[0...12]{_id, title, publishedAt, image, subtitle, images}`
+]|order(publishedAt desc)[0...12]{_id, title, publishedAt, image, subtitle, images, order}`
 
 const getUrl = (
   source: SanityImageSource,
@@ -36,6 +37,7 @@ export default async function IndexPage() {
     {},
     options
   )
+
   if (!pieces) {
     throw new Error("pieces and headerImage are required")
   }
@@ -44,21 +46,23 @@ export default async function IndexPage() {
   if (!projectId || !dataset) {
     throw new Error("projectId and dataset are required")
   }
-  const galleryItems = pieces.map((piece) => {
-    const pieceImageUrl = getUrl(piece.image, { projectId, dataset }).url()
+  const galleryItems = pieces
+    .sort((a, b) => a.order - b.order)
+    .map((piece) => {
+      const pieceImageUrl = getUrl(piece.image, { projectId, dataset }).url()
 
-    return {
-      title: piece.title,
-      imageUrl: pieceImageUrl,
-      subtitle: piece.subtitle,
-      imagesUrls: piece.images
-        ? piece.images.map((image) => {
-            const imageUrl = getUrl(image, { projectId, dataset }).url()
-            return imageUrl
-          })
-        : [],
-    }
-  })
+      return {
+        title: piece.title,
+        imageUrl: pieceImageUrl,
+        subtitle: piece.subtitle,
+        imagesUrls: piece.images
+          ? piece.images.map((image) => {
+              const imageUrl = getUrl(image, { projectId, dataset }).url()
+              return imageUrl
+            })
+          : [],
+      }
+    })
 
   return (
     <div>

@@ -4,13 +4,15 @@ import {
   faInstagramSquare,
   faLinkedin,
 } from "@fortawesome/free-brands-svg-icons"
+import { PortableText } from "@portabletext/react"
+import { PortableTextBlock } from "@portabletext/types"
 import { SanityDocument } from "next-sanity"
 import Link from "next/link"
 
 library.add(faInstagramSquare, faLinkedin)
 
 interface AboutText {
-  aboutText: string
+  aboutText: PortableTextBlock[]
 }
 
 interface ContactInfo {
@@ -42,7 +44,33 @@ export default async function AboutPage() {
   return (
     <div className='max-w-[800px]'>
       <img className=' mb-10' src='/molly-sturge.jpeg' alt='Molly Sturge' />
-      <p className=''>{aboutText[0].aboutText}</p>
+      <div className='text-xs md:text-sm'>
+        <PortableText
+          value={aboutText[0].aboutText}
+          components={{
+            list: {
+              bullet: ({ children }) => (
+                <ul className='space-y-2'>{children}</ul>
+              ),
+              number: ({ children }) => (
+                <ol className='space-y-2'>{children}</ol>
+              ),
+            },
+            listItem: {
+              bullet: ({ children }) => <li>{children}</li>,
+              number: ({ children }) => <li>{children}</li>,
+            },
+            block: {
+              normal: ({ children }) => (
+                <p className='mb-4 whitespace-pre-line'>{children}</p>
+              ),
+            },
+            marks: {
+              break: () => <br />,
+            },
+          }}
+        />
+      </div>
       <p className='font-bold mt-5'>Contact</p>
       <ul>
         <li> {contactInfo[0].phoneNumber} </li>

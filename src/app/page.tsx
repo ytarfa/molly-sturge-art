@@ -20,7 +20,7 @@ interface Piece {
 
 const PIECES_QUERY = `*[
   _type == "piece"
-]|order(publishedAt desc)[0...12]{_id, title, publishedAt, image, subtitle, images, order}`
+]|order(publishedAt desc)[0...50]{_id, title, publishedAt, image, subtitle, images, order}`
 
 const getUrl = (
   source: SanityImageSource,
@@ -46,6 +46,7 @@ export default async function IndexPage() {
   if (!projectId || !dataset) {
     throw new Error("projectId and dataset are required")
   }
+
   const galleryItems = pieces
     .sort((a, b) => a.order - b.order)
     .map((piece) => {

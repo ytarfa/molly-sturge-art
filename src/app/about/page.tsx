@@ -44,7 +44,7 @@ export default async function AboutPage() {
   return (
     <div className='max-w-[800px]'>
       <img className=' mb-10' src='/molly-sturge.jpeg' alt='Molly Sturge' />
-      <div className='text-xs md:text-sm'>
+      <div className='text-xs md:text-base'>
         <PortableText
           value={aboutText[0].aboutText}
           components={{
